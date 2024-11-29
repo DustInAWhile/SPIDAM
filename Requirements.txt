@@ -5,3 +5,4 @@ ffmpeg
 Matplotlib == 3. 9. 2
 Numpy == 2. 0. 2
 LibROSA == 0. 10. 2
+tkinter 
