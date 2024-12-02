@@ -1,8 +1,0 @@
-Required to Install:
--librosa
--numpy
--tkinter
--pydub
--matplotlib
--scipy
--mutagen
