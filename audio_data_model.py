@@ -70,7 +70,7 @@ class AudioDataModel: #initializing class
         decay_time = (end_idx + start_idx) / self.sample_rate
         return decay_time
 
-    def get_resonant_frequency(self):
+    def get_resonant_frequency(self): #Obtains the resonant frequency value
         spectrum = np.abs(np.fft.fft(self.audio_data))
         freqs = np.fft.fftfreq(len(spectrum))
         resonant_freq = np.abs(freqs[np.argmax(spectrum)])
