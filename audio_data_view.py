@@ -153,7 +153,7 @@ class AudioDataView:
         self.canvas.draw()
         self.canvas.get_tk_widget().grid(row=0, column=0)
 
-    def update_summary_box(self, file_name, duration, max_amplitude, rt60_values):
+    def update_summary_box(self, file_name, duration, max_amplitude, rt60_values): # summary box to display values
         """Update the summary box with audio details."""
         self.file_name_label.config(text=f"File: {file_name}")
         self.duration_label.config(text=f"Duration: {duration:.2f} seconds")
