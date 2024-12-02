@@ -72,7 +72,7 @@ class AudioDataView:
             elif self.plot_counter == 5:
                 self.plot_amplitude_envelope()
 
-            self.plot_counter = (self.plot_counter + 1) % 6  # Cycle back to 0 after 5
+            self.plot_counter = (self.plot_counter + 1) % 6  # Code to cycle back to the beginning of the plots
 
     def plot_waveform(self):
         """Plot the audio waveform."""
