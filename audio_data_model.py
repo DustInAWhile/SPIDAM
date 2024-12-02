@@ -86,4 +86,4 @@ class AudioDataModel: #initializing class
     def get_spectrogram(self): #obtains spectrogram
         """Returns a spectrogram of the audio."""
         D = librosa.amplitude_to_db(np.abs(librosa.stft(self.audio_data)), ref=np.max)
-        return D
+        return D #returns the value
