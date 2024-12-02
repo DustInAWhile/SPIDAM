@@ -76,14 +76,14 @@ class AudioDataModel: #initializing class
         resonant_freq = np.abs(freqs[np.argmax(spectrum)])
         return resonant_freq
 
-    def get_audio_length(self):
+    def get_audio_length(self): #Obtains length of the audio file
         return len(self.audio_data) / self.sample_rate
 
-    def get_max_amplitude(self):
+    def get_max_amplitude(self): #Obtains max amplitude
         """Returns the maximum amplitude in the audio data."""
         return np.max(np.abs(self.audio_data))
 
-    def get_spectrogram(self):
+    def get_spectrogram(self): #obtains spectrogram
         """Returns a spectrogram of the audio."""
         D = librosa.amplitude_to_db(np.abs(librosa.stft(self.audio_data)), ref=np.max)
         return D
