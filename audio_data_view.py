@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 
-class AudioDataView:
+class AudioDataView: #Initializes AudioDataView class
     def __init__(self, root, controller):
         self.diff_label = None
         self.root = root
@@ -57,8 +57,8 @@ class AudioDataView:
         file_path = filedialog.askopenfilename(filetypes=[("Audio Files", "*.wav;*.mp3;*.aac")])
         self.controller.load_audio(file_path)
 
-    def next_plot(self):
-        """Cycle through different plots."""
+    def next_plot(self): 
+        """Cycles through the different plots."""
         if self.controller.model.audio_data is not None:
             if self.plot_counter == 0:
                 self.plot_waveform()
@@ -75,8 +75,8 @@ class AudioDataView:
 
             self.plot_counter = (self.plot_counter + 1) % 6  # Cycle back to 0 after 5
 
-    def plot_waveform(self):
-        """Plot the audio waveform."""
+    def plot_waveform(self): 
+        """Plots the audio waveform graph."""
         self.ax.cla()  # Clear the axis
         self.ax.plot(self.controller.model.audio_data)
         self.ax.set_title("Audio Waveform")
@@ -85,9 +85,9 @@ class AudioDataView:
         self.display_plot()
 
     def plot_spectrogram(self):
-        """Plot the spectrogram."""
+        """Plots the spectrogram graph."""
         spectrogram = self.controller.model.get_spectrogram()
-        self.ax.cla()  # Clear the axis
+        self.ax.cla() 
         self.ax.imshow(spectrogram, aspect='auto', origin='lower', cmap='viridis')
         self.ax.set_title("Spectrogram")
         self.ax.set_ylabel("Frequency bins")
@@ -95,48 +95,48 @@ class AudioDataView:
         self.display_plot()
 
     def plot_resonant_frequency_spectrum(self):
-        """Plot the resonant frequency spectrum (FFT)."""
+        """Plots the resonant frequency spectrum graph."""
         if len(self.controller.model.audio_data) > 1:  # Ensure audio data is not empty
             spectrum = np.abs(np.fft.fft(self.controller.model.audio_data))
-            self.ax.cla()  # Clear the axis
+            self.ax.cla() 
             self.ax.plot(np.fft.fftfreq(len(spectrum)), spectrum)
             self.ax.set_title("Resonant Frequency Spectrum")
             self.ax.set_xlabel("Frequency (Hz)")
             self.ax.set_ylabel("Amplitude")
         else:
-            self.ax.cla()  # Clear the axis
+            self.ax.cla() 
             self.ax.text(0.5, 0.5, "Insufficient Data for FFT", ha='center', va='center')
             self.ax.set_title("Resonant Frequency Spectrum")
         self.display_plot()
 
     def plot_rt60(self):
-        """Plot the RT60 values for different frequency ranges."""
+        """Plots the RT60 values for different frequency ranges."""
         rt60_low = self.controller.model.compute_rt60('low')
         rt60_mid = self.controller.model.compute_rt60('mid')
         rt60_high = self.controller.model.compute_rt60('high')
 
-        self.ax.cla()  # Clear the axis
+        self.ax.cla()  
         self.ax.bar(['Low', 'Mid', 'High'], [rt60_low, rt60_mid, rt60_high])
         self.ax.set_title("RT60 Values")
         self.ax.set_ylabel("RT60 (sec)")
         self.display_plot()
 
     def plot_combined_rt60(self):
-        """Plot the combined RT60 values in a single graph."""
+        """Plots the combined RT60 values in a single graph."""
         rt60_low = self.controller.model.compute_rt60('low')
         rt60_mid = self.controller.model.compute_rt60('mid')
         rt60_high = self.controller.model.compute_rt60('high')
 
-        # Combine RT60 values into one bar plot
-        self.ax.cla()  # Clear the axis
+        #Combines RT60 values into one bar plot
+        self.ax.cla()  
         self.ax.bar(['Low', 'Mid', 'High'], [rt60_low, rt60_mid, rt60_high])
         self.ax.set_title("Combined RT60 Values")
         self.ax.set_ylabel("RT60 (sec)")
         self.display_plot()
 
     def plot_amplitude_envelope(self):
-        """Plot the amplitude envelope of the audio signal."""
-        # Calculate the envelope by taking the absolute value of the audio signal
+        """Plots the amplitude envelope of the audio signal."""
+        #Calculates the envelope of the audio signal through the absolute value
         envelope = np.abs(self.controller.model.audio_data)
         self.ax.cla()  # Clear the axis
         self.ax.plot(envelope)
@@ -154,7 +154,7 @@ class AudioDataView:
         self.canvas.draw()
         self.canvas.get_tk_widget().grid(row=0, column=0)
 
-    def update_summary_box(self, file_name, duration, max_amplitude, rt60_values):
+    def update_summary_box(self, file_name, duration, max_amplitude, rt60_values): #updates the summary box
         """Update the summary box with audio details."""
         self.file_name_label.config(text=f"File: {file_name}")
         self.duration_label.config(text=f"Duration: {duration:.2f} seconds")
@@ -164,7 +164,7 @@ class AudioDataView:
 
     def update_rt60_diff(self, diff_low, diff_mid, diff_high):
         """Update the summary box with the differences in RT60 values to 0.5 seconds."""
-        # Adding a label to show the difference in RT60 values
+        #Adds a label to show the difference in RT60 values
         self.diff_label = tk.Label(self.summary_box, text="RT60 Difference to 0.5s:")
         self.diff_label.grid(row=4, column=0, sticky="w")
 
@@ -183,13 +183,13 @@ class AudioDataView:
         rt60_mid = self.controller.model.compute_rt60('mid')
         rt60_high = self.controller.model.compute_rt60('high')
 
-        # Plot the combined RT60 values in a single graph
+        #Plots the combined RT60 values in a single graph
         fig, ax = plt.subplots(figsize=(8, 6))
         ax.bar(['Low', 'Mid', 'High'], [rt60_low, rt60_mid, rt60_high])
         ax.set_title("Combined RT60 Values")
         ax.set_ylabel("RT60 (sec)")
 
-        # Display the combined RT60 plot
+        #Displays the combined RT60 plot
         canvas = FigureCanvasTkAgg(fig, master=self.root)
         canvas.draw()
         canvas.get_tk_widget().grid(row=4, column=0, columnspan=2)
