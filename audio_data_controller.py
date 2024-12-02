@@ -3,7 +3,7 @@ class AudioController: #initializes the class
         self.model = model
         self.view = view
 
-    def load_audio(self, file_path):
+    def load_audio(self, file_path): #loads the audio file provided
         self.model.load_audio(file_path)
         self.view.plot_waveform()
         self.process_audio()
