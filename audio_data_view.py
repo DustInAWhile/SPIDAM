@@ -120,7 +120,7 @@ class AudioDataView:
         self.ax.set_ylabel("RT60 (sec)")
         self.display_plot()
 
-    def plot_combined_rt60(self):
+    def plot_combined_rt60(self): #Shows the three RT60 plots in one graph
         """Plot the combined RT60 values in a single graph."""
         rt60_low = self.controller.model.compute_rt60('low')
         rt60_mid = self.controller.model.compute_rt60('mid')
@@ -142,7 +142,7 @@ class AudioDataView:
         self.ax.set_title("Amplitude Envelope")
         self.ax.set_xlabel("Time (samples)")
         self.ax.set_ylabel("Amplitude")
-        self.display_plot()
+        self.display_plot() 
 
     def display_plot(self):
         """Display the plot on the Tkinter window."""
